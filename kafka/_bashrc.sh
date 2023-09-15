@@ -12,5 +12,6 @@ alias kcg='kafka-consumer-groups --bootstrap-server=${BOOTSTRAP_SERVER} --comman
 alias kcc='kafka-console-consumer --bootstrap-server=${BOOTSTRAP_SERVER} --consumer.config=$HOME/.kafka/admin.properties'
 alias kacls='kafka-acls --bootstrap-server=${BOOTSTRAP_SERVER} --command-config=$HOME/.kafka/admin.properties'
 alias kconfigs='kafka-configs --bootstrap-server=${BOOTSTRAP_SERVER} --command-config=$HOME/.kafka/admin.properties'
-
+alias ktrans='kafka-transactions --command-config $HOME/.kafka/admin.properties --bootstrap-server ${BOOTSTRAP_SERVER}'
 alias koffset='kafka-run-class kafka.tools.GetOffsetShell --bootstrap-server ${BOOTSTRAP_SERVER} --command-config=$HOME/.kafka/admin.properties'
+
