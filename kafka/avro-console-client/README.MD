@@ -1,6 +1,6 @@
 
 
-| --- | --- | --- | --- | --- |
+
 | Parameter | Required | Script parameter | Default | Description |
 | topic | Yes | $1 | | The topic id to produce messages to. | 
 | bootstrap-server | Yes | In script| | The server(s) to connect to. The broker list string in the form HOST1:PORT1,HOST2:PORT2.|
