@@ -9,7 +9,7 @@ partition=$2
 
 export SCHEMA_REGISTRY_OPTS="-Djava.security.auth.login.config=${JAAS_FILE}"
 
-kafka-avro-console-consumer  --bootstrap-server=${BOOTSTRAP_SERVER} --consumer.config=$HOME/.kafka/admin.properties \ 
+kafka-avro-console-consumer  --bootstrap-server=${BOOTSTRAP_SERVER} --consumer.config=${CONFIG_FILE} \ 
   --topic $topic --partition $partition --property print.timestamp=true --property print.key=true --property print.offset=true \
   --property print.partition=true --property print.headers=true --property print.value=false \
   --property  key.separator="!-----!" --property line.separator="!+++++!" --property headers.separator="!=====!" \
