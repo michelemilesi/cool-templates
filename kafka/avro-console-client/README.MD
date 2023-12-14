@@ -1,7 +1,51 @@
+# Avro console consumer
 
-
-
+## CLI parameters
 | Parameter | Required | Script parameter | Default | Description |
+| --- | --- | --- | --- | --- |
+| topic | | $1 | | The topic to consume on. |
+| partition | | $2 | | The partition to consume from. Consumption starts from the end of the partition unless '--offset' is specified. |
+| group | | $3 | | The consumer group id of the consumer. |
+| bootstrap-server | Yes | In script | The server(s) to connect to. |
+| isolation-level | | In script | read_committed | Set to read_committed in order to filter out transactional messages which are not committed. Set to read_uncommitted to read all messages. |
+| offset | | In script | earliest | The offset to consume from (a non-negative number), or 'earliest' which means from beginning, or 'latest' which means from end. |
+| consumer.config | | In Script | | Consumer config properties file." |
+| include | | No | | Regular expression specifying list of topics to include for consumption. |
+| consumer-property | | No | | A mechanism to pass user-defined properties in the form key=value to the consumer. |
+| property | | No | | The properties to initialize the message formatter |
+| from-beginning | | No | | If the consumer does not already have an established offset to consume from, start with the earliest message present in the log rather than the latest message. |
+| max-messages | | No | | The maximum number of messages to consume before exiting. If not set, consumption is continual. |
+| timeout-ms | | No | | If specified, exit if no message is available for consumption for the specified interval. |
+| skip-message-on-error | | No | | If there is an error when processing a message, skip it instead of halt. |
+| enable-systest-events | | No | | Log lifecycle events of the consumer in addition to logging consumed messages. (This is specific for system tests.) |
+
+
+
+## Default property
+| Property | Values | Note |
+| --- | --- | --- |
+| print.timestamp | true, false | |
+| print.key | true, false | |
+| print.offset | true, false | |
+| print.partition | true, false | |
+| print.headers | true, false | |
+| print.value | true, false |
+| key.separator | <key.separator> | |
+| line.separator | <line.separator> | |
+| headers.separator | <line.separator> | |
+| null.literal | <null.literal> | |
+| key.deserializer | <key.deserializer> | |
+| value.deserializer | <value.deserializer> | |
+| header.deserializer | <header.deserializer> | |
+| key.deserializer.property | | Users can pass customized properties for their deserializer formatter |
+| value.deserializer.property | | Users can pass customized properties for their deserializer formatter |
+| header.deserializer.property | | Users can pass customized properties for their deserializer formatter |
+
+# Avro console producer
+
+## CLI parameters
+| Parameter | Required | Script parameter | Default | Description |
+| --- | --- | --- | --- | --- |
 | topic | Yes | $1 | | The topic id to produce messages to. | 
 | bootstrap-server | Yes | In script| | The server(s) to connect to. The broker list string in the form HOST1:PORT1,HOST2:PORT2.|
 | sync | | No| | If set message send requests to the brokers are synchronously, one at a time as they arrive.|
@@ -22,24 +66,23 @@
 | reader-config | | No | | Config properties file for the message reader. Note that property takes precedence over this config. |
 | producer-property | | No | | A mechanism to pass user-defined properties in the form key=value to the producer. |
 | producer.config | | In script | | Producer config properties file. Note that producer-property takes precedence over this config. |
-| --- | --- | --- | --- | --- |
 
+## Default property
+| Property | Default | Note |
+| --- | --- | --- |
+| parse.key | false | |
+| parse.headers | false | |
+| ignore.error | false | |
+| key.separator | \t | |
+| headers.delimiter | \t | |
+| headers.separator | , | | 
+| headers.key.separator | : | |
+| null.marker | |  When set, any fields (key, value and headers) equal to this will be replaced by null |
 
-
-        |Default properties include:
-        | parse.key=false
-        | parse.headers=false
-        | ignore.error=false
-        | key.separator=\t
-        | headers.delimiter=\t
-        | headers.separator=,
-        | headers.key.separator=:
-        | null.marker=   When set, any fields (key, value and headers) equal to this will be replaced by null
-        |Default parsing pattern when:
-        | parse.headers=true and parse.key=true:
-        |  "h1:v1,h2:v2...\tkey\tvalue"
-        | parse.key=true:
-        |  "key\tvalue"
-        | parse.headers=true:
-        |  "h1:v1,h2:v2...\tvalue"
+## Parsing behaviour
+| Condition | Input format |
+| --- | --- |
+| parse.headers=true and parse.key=true | "h1:v1,h2:v2...\tkey\tvalue" |
+| parse.key=true | "key\tvalue" |
+| parse.headers=true |  "h1:v1,h2:v2...\tvalue" |
 
