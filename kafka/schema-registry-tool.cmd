@@ -1,0 +1,1 @@
+java -cp schema-registry-tool.jar it.lutech.bper.cdp.schemaregistry.SchemaRegistryTool %*
